@@ -15,7 +15,7 @@ def predict_using_model(x, model, k=1):
     """
     predict_from_model: 
         encapsulates fastText predict method to output clean variables.
-        Outputs a list of triples of len k.
+        Outputs a list of dictionaries of len k.
     
     :param x: string, description of product to classify
     :param model: fastText model
@@ -27,11 +27,11 @@ def predict_using_model(x, model, k=1):
     confiance = [None]*k
     confiance[0] = format(output[1][0] - output[1][1], '0.3f')
     
-    prediction = {}
+    prediction = []
     for i in range(k):
-        prediction['prediction_'+str(i+1)] = {'label': clean_labels[i],
-                                              'proba': clean_proba[i],
-                                              'confiance': confiance[i]}   
+        prediction.append({'label': clean_labels[i],
+                           'proba': clean_proba[i],
+                           'confiance': confiance[i]})   
     return prediction
 
 

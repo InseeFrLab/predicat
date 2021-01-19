@@ -6,7 +6,7 @@ models:
   
 model_conf:
   na2008:
-    file: model/prototype_modelI.bin
+    file: model/model_na2008.bin
     date:
 
   iri:

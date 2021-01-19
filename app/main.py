@@ -25,15 +25,22 @@ def startup_event():
     global models
     models={model:fasttext.load_model(config['model_conf'][model]['file']) for model in model_list}
 
+
 @app.get("/")
 def read_root():
     # mettre les dernieres infos du modele
     # avec un fichier config yaml
     return {"Hello": "World"}
 
+
 @app.get("/label")
 async def predict_label(text: str, k: int=1):
-    return predict_using_model(x=preprocess_text(text), model=models['na2008'], k=k)
+    output = {'query': text,
+              'count': k,
+              'result': predict_using_model(x=preprocess_text(text), model=models['na2008'], k=k)
+              }
+    return output 
+
 
 @app.get("/process")
 async def process(text: str):
