@@ -5,13 +5,11 @@ Created on Tue Jan 12 11:58:03 2021
 @author: jeremylhour, Yves-Laurent Benichou
 """
 
-import re
 import fasttext
 import yaml
 
 from typing import Optional
 from fastapi import FastAPI
-from fasttext import tokenize
 
 from utils_ddc import preprocess_text, predict_using_model
 
@@ -35,8 +33,7 @@ def read_root():
 
 @app.get("/label")
 async def predict_label(text: str, k: int=1):
-    clean_text = preprocess_text(text)
-    return predict_using_model(x=clean_text, model=models['na2008'], k=k)
+    return predict_using_model(x=preprocess_text(text), model=models['na2008'], k=k)
 
 @app.get("/process")
 async def process(text: str):

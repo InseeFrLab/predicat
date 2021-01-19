@@ -9,7 +9,6 @@ Created on Tue Jan 12 11:58:03 2021
 """
 import re
 import pandas as pd
-from fasttext import tokenize
 
 
 def predict_using_model(x, model, k=1):
@@ -22,13 +21,18 @@ def predict_using_model(x, model, k=1):
     :param model: fastText model
     :param k: k for top-k prediction. default is k=1
     """    
-    output = model.predict(x,k=k+(k==1)*1)
+    output = model.predict(x, k=k+(k==1)*1)
     clean_labels = [re.findall('(?<=__label__).*$', str(label))[0] for label in output[0]]
     clean_proba = [format(p, '0.3f') for p in output[1]]
     confiance = [None]*k
     confiance[0] = format(output[1][0] - output[1][1], '0.3f')
-        
-    return [i for i in zip(clean_labels, clean_proba, confiance)]
+    
+    prediction = {}
+    for i in range(k):
+        prediction['prediction_'+str(i+1)] = {'label': clean_labels[i],
+                                              'proba': clean_proba[i],
+                                              'confiance': confiance[i]}   
+    return prediction
 
 
 def preprocess_text(text: str):
