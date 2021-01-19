@@ -1,0 +1,18 @@
+project:
+  name: predicat
+
+models:
+  - na2008
+  
+model_conf:
+  na2008:
+    file: model/prototype_modelI.bin
+    date:
+
+  iri:
+    file:
+    date:  
+  
+  coicop:
+    file:
+    date:

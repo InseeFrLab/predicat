@@ -1,0 +1,3 @@
+fasttext
+pyyaml
+pandas
