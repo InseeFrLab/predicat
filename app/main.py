@@ -25,20 +25,15 @@ def read_dict(file):
         dict_from_csv = {rows[0].strip():rows[1].strip() for rows in reader}
     return dict_from_csv
 
-config=read_yaml('config.yaml')
-dict_na2008=read_dict('nomenclatures/nomenclature_na2008.csv')
-models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
-
 app = FastAPI()
-models={}
 
-'''
 @app.on_event("startup")
 def startup_event():
-    global models,config
+    global models,config,dict_na2008
     config=read_yaml('config.yaml')
+    dict_na2008=read_dict('nomenclatures/nomenclature_na2008.csv')
     models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
-'''
+
 @app.get("/")
 async def read_root():
     output = {model : config['model_conf'][model] for model in config['models']}
