@@ -136,4 +136,5 @@ paul-ean-master/*
 model_2020-12-14_0.zip
 model_2020-12-14_0/*
 app/model
+app/test*.py
 

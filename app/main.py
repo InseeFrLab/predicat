@@ -7,31 +7,42 @@ Created on Tue Jan 12 11:58:03 2021
 
 import fasttext
 import yaml
+import csv
 
 from typing import Optional
 from fastapi import FastAPI
 
 from utils_ddc import preprocess_text, predict_using_model
 
+def read_yaml(file):
+    with open(file, 'r') as stream:
+        config = yaml.safe_load(stream)
+    return config
+
+def read_dict(file):
+    with open(file, mode='r',encoding='utf8') as f_in:
+        reader = csv.reader(f_in,delimiter=';')
+        dict_from_csv = {rows[0].strip():rows[1].strip() for rows in reader}
+    return dict_from_csv
+
+config=read_yaml('config.yaml')
+dict_na2008=read_dict('nomenclatures/nomenclature_na2008.csv')
+models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
+
 app = FastAPI()
 models={}
 
+'''
 @app.on_event("startup")
 def startup_event():
-    config_file= 'config.yaml' 
-    with open(config_file, 'r') as stream:
-        config = yaml.safe_load(stream)
-    model_list=config['models']
-    global models
-    models={model:fasttext.load_model(config['model_conf'][model]['file']) for model in model_list}
-
-
+    global models,config
+    config=read_yaml('config.yaml')
+    models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
+'''
 @app.get("/")
-def read_root():
-    # mettre les dernieres infos du modele
-    # avec un fichier config yaml
-    return {"Hello": "World"}
-
+async def read_root():
+    output = {model : config['model_conf'][model] for model in config['models']}
+    return { "loaded models" : output }
 
 @app.get("/label")
 async def predict_label(text: str, k: int=1):
@@ -41,14 +52,10 @@ async def predict_label(text: str, k: int=1):
               }
     return output 
 
-
 @app.get("/process")
 async def process(text: str):
     return preprocess_text(text)
 
-'''
 @app.get("/na2008")
-async def na2008(text: str):
-    pass
-    return
-'''
+async def na2008(code: str):
+    return {code: dict_na2008.get(code,None)}

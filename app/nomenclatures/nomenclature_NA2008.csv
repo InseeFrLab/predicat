@@ -1,0 +1,130 @@
+code;intitule
+A01Z;Culture et production animale, chasse et services annexes
+ A02Z;Sylviculture et exploitation forestière
+ A03Z;Pêche et aquaculture
+ B05Z;Extraction de houille et de lignite
+ B06Z;Extraction d'hydrocarbures
+B07Z;Extraction de minerais métalliques
+ B08Z;Autres industries extractives
+ B09Z;Services de soutien aux industries extractives
+ C10A;Transformation et conservation de la viande et préparation de produits à base de viande
+ C10B;Transformation et conservation de poisson, de crustacés et de mollusques
+ C10C;Transformation et conservation de fruits et légumes
+ C10D;Fabrication d’huiles et graisses végétales et animales
+ C10E;Fabrication de produits laitiers
+ C10F;"Travail des grains ; fabrication de produits amylacés"
+ C10G ;Fabrication de produits de boulangerie-pâtisserie et de pâtes alimentaires
+ C10H;Fabrication d'autres produits alimentaires
+ C10K;Fabrication d'aliments pour animaux
+ C11Z;Fabrication de boissons
+ C12Z;Fabrication de produits à base de tabac
+ C13Z;Fabrication de textiles
+ C14Z;Industrie de l'habillement
+ C15Z;Industrie du cuir et de la chaussure
+ C16Z;"Travail du bois et fabrication d'articles en bois et en liège, à l’exception des meubles ; fabrication d’articles en vannerie et sparterie"
+ C17A;Fabrication de pâte à papier, de papier et de carton
+ C17B;Fabrication d'articles en papier ou en carton
+ C18Z;Imprimerie et reproduction d'enregistrements
+ C19Z;Cokéfaction et raffinage
+ C20A;Fabrication de produits chimiques de base, de produits azotés et d'engrais, de matières plastiques de base et de caoutchouc synthétique
+ C20B;Fabrication de savons, de produits d'entretien et de parfums
+ C20C;Fabrication d'autres produits chimiques et de fibres artificielles ou synthétiques 
+ C21Z;Industrie pharmaceutique
+ C22A;Fabrication de produits en caoutchouc 
+ C22B;Fabrication de produits en plastique
+ C23A;Fabrication de verre et d'articles en verre
+ C23B;Fabrication d'autres produits minéraux non métalliques hors verre
+ C24A;Sidérurgie et première transformation de l'acier
+ C24B;Production de métaux précieux et d'autres métaux non ferreux
+ C24C;Fonderie
+ C25A;Fabrication d'éléments en métal pour la construction
+ C25B;"Fabrication de réservoirs, citernes et conteneurs métalliques ; fabrication de générateurs de vapeur, à l'exception des chaudières pour le chauffage central "
+ C25C;Fabrication d'armes et de munitions
+ C25D;Forge, traitement des métaux, usinage
+ C25E;Fabrication de coutellerie, d'outillage, de quincaillerie et d'autres ouvrages en métaux
+ C26A;Fabrication de composants et cartes électroniques
+ C26B;Fabrication d'ordinateurs et d'équipements périphériques
+ C26C;Fabrication d'équipements de communication
+ C26D;Fabrication de produits électroniques grand public
+ C26E;"Fabrication d'instruments et d'appareils de mesure, d'essai et de navigation ; horlogerie"
+ C26F;Fabrication d'équipements d'irradiation médicale, d'équipements électromédicaux et électrothérapeutiques
+ C26G ;"Fabrication de matériels optique et photographique ; fabrication de supports magnétiques et optiques"
+ C27A;Fabrication d'appareils ménagers
+ C27B;Fabrication d'autres équipements électriques
+ C28A;Fabrication de machines et équipements  d'usage général 
+ C28B;Fabrication de machines agricoles et forestières
+ C28C;Fabrication de machines de formage des métaux et de machines-outils
+ C28D;Fabrication d'autres machines d'usage spécifique
+ C29A;"Construction de véhicules automobiles ; fabrication de carrosseries et remorques "
+ C29B;Fabrication d'équipements automobiles
+ C30A;Construction navale
+ C30B;Construction de locomotives et d'autre matériel ferroviaire roulant
+ C30C;Construction aéronautique et spatiale 
+ C30D;Construction de véhicules militaires de combat
+ C30E;Fabrication de matériels de transport n.c.a.
+ C31Z;Fabrication de meubles
+ C32A;Fabrication d’articles de joaillerie, bijouterie et d'instruments de musique
+ C32B;Fabrication d'instruments et de fournitures à usage médical et dentaire
+ C32C;Fabrication d'articles de sport, jeux et jouets et autres activités manufacturières
+ C33Z;Réparation et installation de machines et d'équipements 
+ D35A;Production, transport et distribution d'électricité
+ D35B;Production et distribution de combustibles gazeux, de vapeur et d'air conditionné 
+ E36Z;Captage, traitement et distribution d'eau
+ E37Z;Collecte et traitement des eaux usées
+ E38Z;"Collecte, traitement et élimination des déchets ; récupération"
+ E39Z;Dépollution et autres services de gestion des déchets
+ F41A;Promotion immobilière
+ F41B;Construction de bâtiments résidentiels et non résidentiels
+ F42Z;Génie civil
+ F43Z;Travaux de construction spécialisés
+  G45Z;Commerce et réparation d'automobiles et de motocycles
+  G46Z;Commerce de gros, à l’exception des automobiles et des motocycles
+G47Z;Commerce de détail, à l’exception des automobiles et des motocycles
+ H49A;Transports ferroviaires
+ H49B;Autres transports terrestres de voyageurs
+ H49C;Transports routiers de fret et par conduites
+ H50Z;Transports par eau
+ H51Z;Transports aériens
+ H52Z;Entreposage et services auxiliaires des transports
+ H53Z;Activités de poste et de courrier
+ I55Z;Hébergement
+ I56Z;Restauration
+ J58Z;Édition
+ J59Z;"Production de films cinématographiques, de vidéo et de programmes de télévision ; enregistrement sonore et édition musicale"
+ J60Z;Programmation et diffusion
+ J61Z;Télécommunications
+ J62Z;Programmation, conseil et autres activités informatiques 
+ J63Z;Services d'information
+ K64Z;Activités des services financiers, hors assurance et caisses de retraite
+ K65Z;Assurance
+ K66Z;Activités auxiliaires de services financiers et d'assurance 
+ L68A;Activités des marchands de biens immobiliers et activités immobilières pour compte de tiers
+ L68B;Location et exploitation de biens immobiliers propres ou loués
+ M69Z;Activités juridiques et comptables
+ M70Z;"Activités des sièges sociaux ; conseil de gestion"
+ M71Z;"Activités d'architecture et d'ingénierie ; activités de contrôle et analyses techniques"
+ M72Z;Recherche-développement scientifique
+ M73Z;Publicité et études de marché
+ M74Z;Autres activités spécialisées, scientifiques et techniques
+ M75Z;Activités vétérinaires
+ N77Z;Activités de location et location-bail
+ N78Z;Activités liées à l'emploi
+ N79Z;Activités des agences de voyage, voyagistes, services de réservation et activités connexes
+ N80Z;Enquêtes et sécurité
+ N81Z;Services relatifs aux bâtiments et aménagement paysager
+ N82Z;Activités administratives et autres activités de soutien aux entreprises
+ O84Z;"Administration publique et défense ; sécurité sociale obligatoire"
+ P85Z;Enseignement
+ Q86Z;Activités pour la santé humaine
+ Q87Z;Hébergement médico-social et social
+ Q88Z;Action sociale sans hébergement
+ R90Z;Activités créatives, artistiques et de spectacle
+ R91Z;Bibliothèques, archives, musées et autres activités culturelles
+ R92Z;Organisation de jeux de hasard et d'argent
+ R93Z;Activités sportives, récréatives et de loisirs
+ S94Z;Activités des organisations associatives 
+ S95Z;Réparation d'ordinateurs et de biens personnels et domestiques
+ S96Z;Autres services personnels
+ T97Z;Activités des ménages en tant qu'employeurs de personnel domestique
+ T98Z;Activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre
+ U99Z;Activités extra-territoriales

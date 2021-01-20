@@ -6,8 +6,8 @@ models:
   
 model_conf:
   na2008:
-    file: model/model_na2008.bin
-    date:
+    file: model_na2008.bin
+    date: 2020/12/14
 
   iri:
     file:
