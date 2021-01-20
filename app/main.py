@@ -37,20 +37,20 @@ def startup_event():
 @app.get("/")
 async def read_root():
     output = {model : config['model_conf'][model] for model in config['models']}
-    return { "loaded models" : output }
+    return { "active models" : output }
 
 @app.get("/label")
-async def predict_label(text: str, k: int=1):
-    output = {'query': text,
+async def predict_label(q: str, k: int=1):
+    output = {'query': q,
               'count': k,
-              'result': predict_using_model(x=preprocess_text(text), model=models['na2008'], k=k)
+              'result': predict_using_model(x=preprocess_text(q), model=models['na2008'], k=k)
               }
     return output 
 
 @app.get("/process")
-async def process(text: str):
-    return preprocess_text(text)
+async def process(q: str):
+    return preprocess_text(q)
 
 @app.get("/na2008")
-async def na2008(code: str):
-    return {code: dict_na2008.get(code,None)}
+async def na2008(q: str):
+    return {q: dict_na2008.get(q,None)}
