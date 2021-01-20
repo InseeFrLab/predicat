@@ -31,7 +31,7 @@ app = FastAPI()
 def startup_event():
     global models,config,dict_na2008
     config=read_yaml('config.yaml')
-    dict_na2008=read_dict('nomenclatures/nomenclature_na2008.csv')
+    dict_na2008=read_dict('nomenclatures/nomenclature_NA2008.csv')
     models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
 
 @app.get("/")
