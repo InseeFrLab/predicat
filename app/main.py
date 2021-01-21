@@ -40,16 +40,25 @@ async def read_root():
     return { "active models" : output }
 
 @app.get("/label")
-async def predict_label(q: List[str] = Query([]), k: int=1):
+async def predict_label(q: List[str] = Query(..., title="Query string",\
+        description="Description of the product to be classified"), k: int=1):
     output={}
     for item in set(q):
         output[item]=predict_using_model(x=preprocess_text(item), model=models['na2008'], k=k)
     return output 
     
 @app.get("/process")
-async def process(q: str):
-    return {preprocess_text(q)}
+async def process(q: List[str] = Query(..., title="Query string",\
+        description="Process description cleaning algorithm")):
+    output={}
+    for item in set(q):
+        output[item]=preprocess_text(item)
+    return output 
 
 @app.get("/na2008")
-async def na2008(q: str):
-    return {q: dict_na2008.get(q,None)}
+async def na2008(q: List[str] = Query(..., title="Query string",\
+        description="Convert NA2008 code to description")):
+    output={}
+    for item in set(q):
+        output[item]=dict_na2008.get(item,None)
+    return output 
