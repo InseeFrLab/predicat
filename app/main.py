@@ -9,8 +9,8 @@ import fasttext
 import yaml
 import csv
 
-from typing import Optional
-from fastapi import FastAPI
+from typing import Optional, List
+from fastapi import FastAPI, Query
 
 from utils_ddc import preprocess_text, predict_using_model
 
@@ -40,16 +40,15 @@ async def read_root():
     return { "active models" : output }
 
 @app.get("/label")
-async def predict_label(q: str, k: int=1):
-    output = {'query': q,
-              'count': k,
-              'result': predict_using_model(x=preprocess_text(q), model=models['na2008'], k=k)
-              }
+async def predict_label(q: List[str] = Query([]), k: int=1):
+    output={}
+    for item in set(q):
+        output[item]=predict_using_model(x=preprocess_text(item), model=models['na2008'], k=k)
     return output 
-
+    
 @app.get("/process")
 async def process(q: str):
-    return preprocess_text(q)
+    return {preprocess_text(q)}
 
 @app.get("/na2008")
 async def na2008(q: str):
