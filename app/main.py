@@ -65,5 +65,6 @@ async def na2008(q: List[str] = Query(..., title="Query string",\
         description="Convert NA2008 code to description")):
     output={}
     for item in set(q):
+        item=item.upper()
         output[item]=dict_na2008.get(item,None)
     return output 
