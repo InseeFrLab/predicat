@@ -1,3 +1,6 @@
 fasttext
+fastapi
 pyyaml
 pandas
+uvicorn
+gunicorn
