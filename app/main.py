@@ -25,7 +25,10 @@ def read_dict(file):
         dict_from_csv = {rows[0].strip():rows[1].strip() for rows in reader}
     return dict_from_csv
 
-app = FastAPI()
+app = FastAPI(
+    title="Predicat",
+    description="Predict category from a product description",
+    version="1.0.0")
 
 @app.on_event("startup")
 def startup_event():
