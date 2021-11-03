@@ -9,6 +9,7 @@ import fasttext
 import yaml
 import csv
 
+from typing_extensions import Literal
 from typing import Optional, List
 from fastapi import FastAPI, Query
 
@@ -32,42 +33,47 @@ app = FastAPI(
 
 @app.on_event("startup")
 def startup_event():
-    global models,config,dict_na2008
-    config=read_yaml('config.yaml')
-    dict_na2008=read_dict('nomenclatures/nomenclature_NA2008.csv')
-    models={model:fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
+    global models, config, full_dict
+    config = read_yaml('config.yaml')
+    dict_na2008 = read_dict('nomenclatures/nomenclature_NA2008.csv')
+    dict_coicop = read_dict('nomenclatures/nomenclature_COICOP10.csv')
+    full_dict = {**dict_na2008, **dict_coicop}
+    models = {model: fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
 
 @app.get("/")
 async def read_root():
     output = {model : config['model_conf'][model] for model in config['models']}
-    return { "active models" : output }
+    return {"active models" : output}
 
 @app.get("/label")
-async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),\
-        k: int = Query(1, title="top-K", description="Specify num of predictions to be displayed"),\
-        v: Optional[bool] = Query(False, title="verbosity", description="If True, displays label of category")):
-    output={}
+async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
+                        k: int = Query(1, title="top-K", description="Specify num of predictions to be displayed"),
+                        v: Optional[bool] = Query(False, title="verbosity", description="If True, displays label of category"),
+                        nomenclature: Literal['na2008', 'coicop'] = Query('coicop', title='nomenclature', description='Classification system desired')):
+    output = {}
     for item in set(q):
-        pred=predict_using_model(x=preprocess_text(item), model=models['na2008'], k=k)
+        pred = predict_using_model(x=preprocess_text(item), model=models[nomenclature], k=k)
         if v:
             for i in pred:
-                i['label']+=" | "+ dict_na2008.get(i['label'],None)
+                i['label'] += " | "+ full_dict.get(i['label'],None)
         output[item]=pred
     return output
     
 @app.get("/process")
-async def process(q: List[str] = Query(..., title="Query string",\
-        description="Process description cleaning algorithm")):
+async def process(q: List[str] = Query(..., 
+                                       title="Query string",
+                                       description="Process description cleaning algorithm")):
     output={}
     for item in set(q):
-        output[item]=preprocess_text(item)
+        output[item] = preprocess_text(item)
     return output 
 
-@app.get("/na2008")
-async def na2008(q: List[str] = Query(..., title="Query string",\
-        description="Convert NA2008 code to description")):
+@app.get("/label_description")
+async def na2008(q: List[str] = Query(..., 
+                                      title="Query string",
+                                      description="Convert NA2008 or COICOP code to description")):
     output={}
     for item in set(q):
-        item=item.upper()
-        output[item]=dict_na2008.get(item,None)
+        item = item.upper()
+        output[item] = full_dict.get(item,None)
     return output 
