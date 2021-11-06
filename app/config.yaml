@@ -3,6 +3,7 @@ project:
 
 models:
   - na2008
+  - coicop
   
 model_conf:
   na2008:
@@ -14,5 +15,5 @@ model_conf:
     date:  
   
   coicop:
-    file:
-    date:
+    file: model_coicop10.bin
+    date: 2021/11/02
