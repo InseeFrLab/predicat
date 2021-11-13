@@ -2,7 +2,7 @@
 """
 Main file for the API.
 Created on Tue Jan 12 11:58:03 2021
-@author: jeremylhour, Yves-Laurent Benichou
+@author: jeremy l'hour, Yves-Laurent Benichou
 """
 
 import fasttext
@@ -49,10 +49,10 @@ async def read_root():
 async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
                         k: int = Query(1, title="top-K", description="Specify num of predictions to be displayed"),
                         v: Optional[bool] = Query(False, title="verbosity", description="If True, displays label of category"),
-                        nomenclature: Literal['na2008', 'coicop'] = Query('coicop', title='nomenclature', description='Classification system desired')):
+                        n: Literal['na2008', 'coicop'] = Query('coicop', title='nomenclature', description='Classification system desired')):
     output = {}
     for item in set(q):
-        pred = predict_using_model(x=preprocess_text(item), model=models[nomenclature], k=k)
+        pred = predict_using_model(x=preprocess_text(item), model=models[n], k=k)
         if v:
             for i in pred:
                 i['label'] += " | "+ full_dict.get(i['label'],None)
@@ -62,16 +62,16 @@ async def predict_label(q: List[str] = Query(..., title="query string", descript
 @app.get("/process")
 async def process(q: List[str] = Query(..., 
                                        title="Query string",
-                                       description="Process description cleaning algorithm")):
+                                       description="Process description with cleaning algorithm")):
     output={}
     for item in set(q):
         output[item] = preprocess_text(item)
     return output 
 
 @app.get("/label_description")
-async def na2008(q: List[str] = Query(..., 
+async def label_description(q: List[str] = Query(..., 
                                       title="Query string",
-                                      description="Convert NA2008 or COICOP code to description")):
+                                      description="Convert NA2008 or COICOP codes to description")):
     output={}
     for item in set(q):
         item = item.upper()
