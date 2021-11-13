@@ -38,7 +38,7 @@ def startup_event():
     dict_na2008 = read_dict('nomenclatures/nomenclature_NA2008.csv')
     dict_coicop = read_dict('nomenclatures/nomenclature_COICOP10.csv')
     full_dict = {**dict_na2008, **dict_coicop}
-    models = {model: fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
+    models = {model: fasttext.load_model('data/'+config['model_conf'][model]['file']) for model in config['models']}
 
 @app.get("/")
 async def read_root():
