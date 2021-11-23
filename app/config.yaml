@@ -8,6 +8,7 @@ models:
 model_conf:
   na2008:
     file: model_na2008.bin
+    desc: Model trained on products in IRI dataset 
     date: 2020/12/14
 
   iri:
@@ -16,4 +17,5 @@ model_conf:
   
   coicop:
     file: model_coicop10.bin
+    desc: Model trained on products in IRI dataset
     date: 2021/11/02

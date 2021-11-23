@@ -47,8 +47,8 @@ async def read_root():
 
 @app.get("/label")
 async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
-                        k: int = Query(1, title="top-K", description="Specify num of predictions to be displayed"),
-                        v: Optional[bool] = Query(False, title="verbosity", description="If True, displays label of category"),
+                        k: int = Query(1, title="top-K", description="Specify number of predictions to be displayed"),
+                        v: Optional[bool] = Query(False, title="verbosity", description="If True, add the label of code category"),
                         n: Literal['na2008', 'coicop'] = Query('coicop', title='nomenclature', description='Classification system desired')):
     output = {}
     for item in set(q):
@@ -71,7 +71,7 @@ async def process(q: List[str] = Query(...,
 @app.get("/label_description")
 async def label_description(q: List[str] = Query(..., 
                                       title="Query string",
-                                      description="Convert NA2008 or COICOP codes to description")):
+                                      description="Convert nomenclatures codes to description")):
     output={}
     for item in set(q):
         item = item.upper()
