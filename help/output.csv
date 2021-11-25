@@ -1,7 +1,7 @@
 ,libelle,label,proba,confiance
 0,Compote abricot,01.1.8.2.1,1.000,0.999
 1,Yaourt Fruits Yoplait,01.1.4.4.1,1.000,0.997
-2,Jus d'orange,01.1.1.4.1,0.893,0.308
+2,Jus d'orange,01.2.2.2.1,0.766,0.298
 3,Oranges 500g,01.1.8.2.1,0.615,0.245
 4,Gnocchi Lustucru,01.1.1.6.1,1.000,0.943
 5,T-Shirt HOMME XXL,03.1.2.2.2,0.438,0.370
@@ -9,7 +9,7 @@
 7,Baskets 41 H,03.2.1.2.1,1.000,0.852
 8,Pates barilla,01.1.1.6.1,1.000,0.999
 9,biberon tetine silicone,12.3.2.2.1,1.000,0.989
-10,Huile d'olives pujet,01.1.5.3.1,0.223,0.223
+10,Huile d'olives pujet,01.1.5.3.1,0.053,0.053
 11,coca cola 1.5 L,01.2.2.2.1,0.998,0.993
 12,renovation rail,07.2.1.3.1,0.755,0.193
 13,saumon en tranches,01.1.3.5.1,0.637,0.374
