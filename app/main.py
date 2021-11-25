@@ -45,6 +45,11 @@ async def read_root():
     output = {model : config['model_conf'][model] for model in config['models']}
     return {"active models" : output}
 
+@app.get("/models_list")
+async def models_list():
+    output = [i for i in config['models']]
+    return {"models" : output}
+
 @app.get("/label")
 async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
                         k: int = Query(1, title="top-K", description="Specify number of predictions to be displayed"),
