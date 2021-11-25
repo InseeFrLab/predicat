@@ -49,14 +49,20 @@ async def read_root():
 async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
                         k: int = Query(1, title="top-K", description="Specify number of predictions to be displayed"),
                         v: Optional[bool] = Query(False, title="verbosity", description="If True, add the label of code category"),
-                        n: Literal['na2008', 'coicop'] = Query('coicop', title='nomenclature', description='Classification system desired')):
+                        n: Literal['na2008', 'coicop', 'all'] = Query('all', title='nomenclature', description='Classification system desired')):
+    if n == 'all':
+        n = [i for i in config['models']]
+    if type(n) == str:
+        n = [n]
     output = {}
-    for item in set(q):
-        pred = predict_using_model(x=preprocess_text(item), model=models[n], k=k)
-        if v:
-            for i in pred:
-                i['label'] += " | "+ full_dict.get(i['label'],None)
-        output[item]=pred
+    for nomenclature in n:
+        output[nomenclature]={}
+        for item in set(q):
+            pred = predict_using_model(x=preprocess_text(item), model=models[nomenclature], k=k)
+            if v:
+                for i in pred:
+                    i['label'] += " | "+ full_dict.get(i['label'],None)
+            output[nomenclature][item]=pred
     return output
     
 @app.get("/process")
