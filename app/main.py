@@ -66,7 +66,7 @@ async def predict_label(q: List[str] = Query(..., title="query string", descript
             pred = predict_using_model(x=preprocess_text(item), model=models[nomenclature], k=k)
             if v:
                 for i in pred:
-                    i['label'] += " | "+ full_dict.get(i['label'],None)
+                    i['label'] += " | "+ full_dict.get(i['label'],'')
             output[nomenclature][item]=pred
     return output
     
