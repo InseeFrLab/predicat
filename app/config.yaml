@@ -2,14 +2,20 @@ project:
   name: predicat
 
 models:
+  - na2008_old
   - na2008
   - coicop
   
 model_conf:
-  na2008:
+  na2008_old:
     file: model_na2008.bin
-    desc: Model trained on products in IRI dataset 
+    desc: Model trained on products in IRI+DDC dataset 
     date: 2020/12/14
+  
+  na2008:
+    file: code_na2008_2021_12_10.bin
+    desc: Model trained with use_in_train=True 
+    date: 2021/12/10
 
   iri:
     file:
@@ -17,5 +23,5 @@ model_conf:
   
   coicop:
     file: model_coicop10.bin
-    desc: Model trained on products in IRI dataset
+    desc: Model trained on products in IRI+DDC dataset
     date: 2021/11/02
