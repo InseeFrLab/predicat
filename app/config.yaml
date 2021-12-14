@@ -13,7 +13,7 @@ model_conf:
     date: 2020/12/14
   
   na2008:
-    file: code_na2008_2021_12_10.bin
+    file: code_na2008_2021-12-10.bin
     desc: Model trained with use_in_train=True 
     date: 2021/12/10
 
