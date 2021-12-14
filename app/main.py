@@ -54,7 +54,7 @@ async def models_list():
 async def predict_label(q: List[str] = Query(..., title="query string", description="Description of the product to be classified"),
                         k: int = Query(1, title="top-K", description="Specify number of predictions to be displayed"),
                         v: Optional[bool] = Query(False, title="verbosity", description="If True, add the label of code category"),
-                        n: Literal['na2008', 'coicop', 'all'] = Query('all', title='nomenclature', description='Classification system desired')):
+                        n: Literal['na2008', 'coicop', 'na2008_old', 'all'] = Query('all', title='nomenclature', description='Classification system desired')):
     if n == 'all':
         n = [i for i in config['models']]
     if type(n) == str:
