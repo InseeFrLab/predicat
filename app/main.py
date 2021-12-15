@@ -22,7 +22,7 @@ def read_yaml(file):
 
 def read_dict(file):
     with open(file, mode='r',encoding='utf8') as f_in:
-        reader = csv.reader(f_in,delimiter=';')
+        reader = csv.reader(f_in, delimiter=';')
         dict_from_csv = {rows[0].strip():rows[1].strip() for rows in reader}
     return dict_from_csv
 
@@ -60,31 +60,36 @@ async def predict_label(q: List[str] = Query(..., title="query string", descript
     if type(n) == str:
         n = [n]
     output = {}
+
     for nomenclature in n:
-        output[nomenclature]={}
-        for item in set(q):
-            pred = predict_using_model(x=preprocess_text(item), model=models[nomenclature], k=k)
-            if v:
-                for i in pred:
-                    i['label'] += " | "+ full_dict.get(i['label'],'')
-            output[nomenclature][item]=pred
+        output[nomenclature] = {}
+        descriptions = list(set(q))
+        preprocessed_descriptions = [preprocess_text(description) for description in descriptions]
+        preds = predict_using_model(preprocessed_descriptions, model=models[nomenclature], k=k)
+        if v:
+            for pred in preds:
+                for pred_k in pred:
+                    pred_k['label'] += " | "+ full_dict.get(pred_k['label'],'')
+        for description, pred in zip(descriptions, preds):
+            output[nomenclature][description] = pred
+    
     return output
     
 @app.get("/process")
 async def process(q: List[str] = Query(..., 
                                        title="Query string",
                                        description="Process description with cleaning algorithm")):
-    output={}
+    output = {}
     for item in set(q):
         output[item] = preprocess_text(item)
     return output 
 
 @app.get("/label_description")
 async def label_description(q: List[str] = Query(..., 
-                                      title="Query string",
-                                      description="Convert nomenclatures codes to description")):
-    output={}
+                                                 title="Query string",
+                                                 description="Convert nomenclatures codes to description")):
+    output = {}
     for item in set(q):
         item = item.upper()
-        output[item] = full_dict.get(item,None)
+        output[item] = full_dict.get(item, None)
     return output 

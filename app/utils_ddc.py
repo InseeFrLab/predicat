@@ -9,39 +9,47 @@ Created on Tue Jan 12 11:58:03 2021
 """
 import re
 import pandas as pd
+from typing import List
 
 
-def predict_using_model(x, model, k=1):
+def predict_using_model(descriptions: List[str], model, k: int = 1):
     """
-    predict_from_model: 
-        encapsulates fastText predict method to output clean variables.
-        Outputs a list of dictionaries of len k.
+    predict_using_model: 
+        Encapsulates fastText predict method to predict labels for a list of product descriptions.
+        Outputs Returns a list (of length the number of descriptions) of lists (of length k) of dictionaries. 
     
-    :param x: string, description of product to classify
-    :param model: fastText model
-    :param k: k for top-k prediction. default is k=1
-    """    
-    output = model.predict(x, k=k+(k==1)*1)
-    clean_labels = [re.findall('(?<=__label__).*$', str(label))[0] for label in output[0]]
-    clean_proba = [format(p, '0.3f') for p in output[1]]
-    confiance = [None]*k
-    confiance[0] = format(output[1][0] - output[1][1], '0.3f')
+    :param x: List(str): List of product descriptions to classify.
+    :param model: fastText model.
+    :param k: int: This function outputs the top k predictions. Default is 1.
+    """
+    output = model.predict(descriptions, k=k+(k==1)*1)
+
+    all_predictions = []
+    all_predicted_labels = output[0]
+    all_predicated_probas = output[1]
+    for predicted_labels, predicted_probas in zip(all_predicted_labels, all_predicated_probas):
+        clean_labels = [re.findall('(?<=__label__).*$', str(label))[0] for label in predicted_labels]
+        clean_probas = [format(p, '0.3f') for p in predicted_probas]
+        confiance = [None] * k
+        confiance[0] = format(predicted_probas[0] - predicted_probas[1], '0.3f')
     
-    prediction = []
-    for i in range(k):
-        prediction.append({'label': clean_labels[i],
-                           'proba': clean_proba[i],
-                           'confiance': confiance[i]})   
-    return prediction
+        prediction = []
+        for i in range(k):
+            prediction.append({'label': clean_labels[i],
+                               'proba': clean_probas[i],
+                               'confiance': confiance[i]})
+        all_predictions.append(prediction)
+
+    return all_predictions
 
 
 def preprocess_text(text: str):
     """
     preprocess_text:
-        Cleans the text as per fasttext requirements.
+        Cleans the text as per fastText requirements.
     
-    :text: str: text to clean
-    :returns: str: cleaned text
+    :text: str: Text to clean.
+    :returns: str: Cleaned text.
     """
     text = text.upper()
     
