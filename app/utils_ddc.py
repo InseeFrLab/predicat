@@ -46,24 +46,19 @@ def predict_using_model(descriptions: List[str], model, k: int = 1):
 def preprocess_text(text: str):
     """
     preprocess_text:
-        Cleans the text as per fastText requirements.
+        Cleans the text as per fasttext requirements.
     
-    :text: str: Text to clean.
-    :returns: str: Cleaned text.
+    :text: str: text to clean
+    :returns: str: cleaned text
     """
     text = text.upper()
-    
-    df = pd.DataFrame([{'libelle' : text}])
-    df.replace({'libelle': replace_values_ean}, regex=True, inplace=True) # Substitution des regex appropriés
-    df.replace({'libelle': replace_whitespaces}, regex=True, inplace=True) # Suppression des espaces multiples
-    df['libelle'] = df['libelle'].str.strip() # Suppression des espaces autour de la chaine
-
-    return str(df.loc[0,'libelle'])
+    for pattern, replace in replace_values_ean.items():     # Substitution des regex appropriés à partir du dictionnaire de règles
+        text = re.sub(pattern,replace,text)   
+    text=re.sub(r'([ ]{2,})',' ',text)                      # Suppression des espaces multiples
+    return text.strip()                                     # Suppression des espaces autour de la chaine
 
 
 # Dictionnaires nécessaires pour les nettoyages
-replace_whitespaces = {r'([ ]{2,})': ' '}
-
 replace_values_ean = {
             'NON RENSEIGNE': '',
             'NON CONNUE': '',
