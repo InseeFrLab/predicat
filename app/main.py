@@ -5,9 +5,13 @@ Created on Tue Jan 12 11:58:03 2021
 @author: jeremy l'hour, Yves-Laurent Benichou
 """
 
+from shutil import ExecError
+from tkinter.messagebox import showwarning
 import fasttext
 import yaml
 import csv
+import os
+import warnings
 
 from typing_extensions import Literal
 from typing import Optional, List
@@ -33,21 +37,29 @@ app = FastAPI(
 
 @app.on_event("startup")
 def startup_event():
-    global models, config, full_dict
+    global models, config, full_dict, available_models
     config = read_yaml('config.yaml')
     dict_na2008 = read_dict('nomenclatures/nomenclature_NA2008.csv')
     dict_coicop = read_dict('nomenclatures/nomenclature_COICOP10.csv')
     full_dict = {**dict_na2008, **dict_coicop}
-    models = {model: fasttext.load_model('model/'+config['model_conf'][model]['file']) for model in config['models']}
+    model_path_names = {model : 'model/'+config['model_conf'][model]['file'] for model in config['models']}
+    available_models = [model for model in config['models'] if os.path.exists(model_path_names[model])]
+    models = {model: fasttext.load_model(model_path_names[model]) for model in available_models}
+    if not(len(models)):
+        raise Exception("No models is available")
+    if len(available_models) != len(config['models']):
+        warnings.warn(message="Some models have not been found")
+
+    
 
 @app.get("/")
 async def read_root():
-    output = {model : config['model_conf'][model] for model in config['models']}
+    output = {model : config['model_conf'][model] for model in available_models}
     return {"active models" : output}
 
 @app.get("/models_list")
 async def models_list():
-    output = [i for i in config['models']]
+    output = [i for i in available_models]
     return {"models" : output}
 
 @app.get("/label")
@@ -56,7 +68,7 @@ async def predict_label(q: List[str] = Query(..., title="query string", descript
                         v: Optional[bool] = Query(False, title="verbosity", description="If True, add the label of code category"),
                         n: Literal['na2008', 'coicop', 'na2008_old', 'all'] = Query('all', title='nomenclature', description='Classification system desired')):
     if n == 'all':
-        n = [i for i in config['models']]
+        n = [i for i in available_models]
     if type(n) == str:
         n = [n]
     output = {}
