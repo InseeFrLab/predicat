@@ -63,7 +63,7 @@ async def predict_label(q: List[str] = Query(..., title="query string", descript
 
     for nomenclature in n:
         output[nomenclature] = {}
-        descriptions = list(set(q))
+        descriptions = sorted(set(q), key=q.index)
         preprocessed_descriptions = [preprocess_text(description) for description in descriptions]
         preds = predict_using_model(preprocessed_descriptions, model=models[nomenclature], k=k)
         if v:
